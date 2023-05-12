@@ -22,4 +22,28 @@ public abstract class Plant extends Organism {
     public void Collision(coordinate pos) {
         return;
     }
+
+    public boolean ifPlant(Organism org) {
+        if (org instanceof Mlecz) {
+            return true;
+        } else if (org instanceof Trawa) {
+            return true;
+        } else if (org instanceof Guarana) {
+            return true;
+        } else if (org instanceof WilczeJagody) {
+            return true;
+        } else if (org instanceof BarszczSosnowskiego) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean ifHuman(Organism org) {
+        if (org instanceof Human) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
