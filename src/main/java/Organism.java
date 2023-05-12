@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public abstract class Organism {
     private int force;
     private int age;
@@ -14,16 +16,75 @@ public abstract class Organism {
     }
 
     public abstract String GetName();
-    public abstract void  Action();
-    public abstract void  Collision();
-    public abstract void  PrintOrganism();
-    public abstract void  Multiplication();
 
-    public boolean GetSpecialAbility(){
+    public abstract void Action();
+
+    public abstract void Collision(coordinate pos);
+
+    public abstract void PrintOrganism();
+
+    public abstract void Multiplication(coordinate pos);
+
+    public coordinate Move() {
+        coordinate newPosition = position;
+
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(4);
+        for (int i = 0; i < 4; i++) {
+            if (randomNumber == 0 && newPosition.getX() != 1) {//gora
+                newPosition.setX(newPosition.getX() - 1);
+                break;
+            } else if (randomNumber == 1 && newPosition.getX() != currentWorld.getX()) {//dol
+                newPosition.setX(newPosition.getX() + 1);
+                break;
+            } else if (randomNumber == 2 && newPosition.getY() != 1) {//lewo
+                newPosition.setY(newPosition.getY() - 1);
+                break;
+            } else if (randomNumber == 3 && newPosition.getY() != currentWorld.getY()) {
+                newPosition.setY(newPosition.getY() + 1);
+                break;
+            }
+        }
+
+        return newPosition;
+    }
+
+    public coordinate FindFreeField() {
+        coordinate newPosition = position;
+
+        if (newPosition.getY() != 1 && currentWorld.getOrganismFromArray(newPosition.getX(), newPosition.getY() - 1) == null) {
+            newPosition.setY(newPosition.getY() - 1);
+        } else if (newPosition.getY() != currentWorld.getY() && currentWorld.getOrganismFromArray(newPosition.getX(), newPosition.getY() + 1) == null) {
+            newPosition.setY(newPosition.getY() + 1);
+        } else if (newPosition.getX() != currentWorld.getX() && currentWorld.getOrganismFromArray(newPosition.getX() + 1, newPosition.getY()) == null) {
+            newPosition.setX(newPosition.getX() + 1);
+
+        } else if (newPosition.getX() != 1 && currentWorld.getOrganismFromArray(newPosition.getX() - 1, newPosition.getY()) == null) {
+            newPosition.setX(newPosition.getX() - 1);
+        } else {
+            newPosition.setY(-1);
+            newPosition.setX(-1);
+        }
+
+        return newPosition;
+    }
+
+    public boolean RandomProbability(int var) {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(100);
+        if (randomNumber < var) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public boolean GetSpecialAbility() {
         return false;
     }
 
-    public int GetCounterAbility(){
+    public int GetCounterAbility() {
         return 0;
     }
 
@@ -65,5 +126,6 @@ public abstract class Organism {
 
     public void setPosition(coordinate position) {
         this.position = position;
+
     }
 }

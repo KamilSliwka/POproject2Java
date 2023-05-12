@@ -40,4 +40,5 @@ public class coordinate {
         result = 31 * result + getY();
         return result;
     }
+
 }

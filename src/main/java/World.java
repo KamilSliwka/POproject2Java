@@ -46,15 +46,14 @@ public class World {
     }
 
     public Organism getOrganismFromArray(int x,int y) {
-        if(x<0||x>this.x||y<0||y>this.y){
+        if (x < 1 || x > this.x || y < 1 || y > this.y) {
             return null;
-        }
-        else{
-            return array[x][y];
+        } else {
+            return array[x - 1][y - 1];
         }
     }
 
     public void setOrganismOnArray(Organism org,int x,int y) {
-        this.array[x][y]=org;
+        this.array[x - 1][y - 1] = org;
     }
 }
