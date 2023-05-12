@@ -14,7 +14,8 @@ public abstract class Animal extends Organism {
             getCurrentWorld().setOrganismOnArray(null, getPosition().getX(), getPosition().getY());
             setPosition(newPosition);
         } else {
-            Collision(newPosition);
+            if (!(newPosition.equals(getPosition())))
+                Collision(newPosition);
         }
     }
 

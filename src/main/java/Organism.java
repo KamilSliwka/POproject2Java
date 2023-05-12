@@ -23,7 +23,7 @@ public abstract class Organism {
 
     public abstract void PrintOrganism();
 
-    public abstract void Multiplication(coordinate pos);
+    public abstract Organism Multiplication(coordinate pos);
 
     public coordinate Move() {
         coordinate newPosition = position;
