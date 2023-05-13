@@ -21,7 +21,49 @@ public abstract class Animal extends Organism {
 
     @Override
     public void Collision(coordinate pos) {
-///
+        Organism org = getCurrentWorld().getOrganismFromArray(pos.getX(), pos.getY());
+        if (ifTheSameOrganism(org)) {
+            Birth();
+        } else if (this instanceof Human && this.GetSpecialAbility() && this.getForce() <= org.getForce()) {
+
+        } else if (org instanceof Human && org.getForce() <= this.getForce() && org.GetSpecialAbility()) {
+
+        } else if (org instanceof Zolw && this.getForce() >= 5) {
+            org.setAge(-1);
+            ChangePosition(pos);
+        } else if (org instanceof Antylopa && this.getForce() >= org.getForce()) {
+            coordinate newPosition = org.FindFreeField();
+            boolean antylopeEscape = org.RandomProbability(50);
+            if (newPosition.getX() == -1 && newPosition.getY() == -1) {
+                org.setAge(-1);
+                ChangePosition(pos);
+            } else if (antylopeEscape) {
+                org.getCurrentWorld().setOrganismOnArray(org, newPosition.getX(), newPosition.getY());
+                org.setPosition(newPosition);
+                ChangePosition(pos);
+            } else {
+                org.setAge(-1);
+                ChangePosition(pos);
+            }
+        } else if (org instanceof Guarana) {
+            this.setForce(getForce() + 3);
+            org.setAge(-1);
+            ChangePosition(pos);
+        } else if (org instanceof WilczeJagody) {
+            getCurrentWorld().setOrganismOnArray(null, getPosition().getX(), getPosition().getY());
+            this.setAge(-1);
+
+        } else if (org instanceof BarszczSosnowskiego) {
+            getCurrentWorld().setOrganismOnArray(null, getPosition().getX(), getPosition().getY());
+            this.setAge(-1);
+        } else if (this.getForce() >= org.getForce()) {
+            org.setAge(-1);
+            ChangePosition(pos);
+        } else if (this.getForce() < org.getForce()) {
+            this.setAge(-1);
+            getCurrentWorld().setOrganismOnArray(null, getPosition().getX(), getPosition().getY());
+        }
+
     }
 
     public String GetName(Organism org) {
@@ -44,6 +86,12 @@ public abstract class Animal extends Organism {
             return;
         }
         Multiplication(newPosition);
+    }
+
+    public void ChangePosition(coordinate pos) {
+        getCurrentWorld().setOrganismOnArray(this, pos.getX(), pos.getY());
+        getCurrentWorld().setOrganismOnArray(null, getPosition().getX(), getPosition().getY());
+        this.setPosition(pos);
     }
 
 
