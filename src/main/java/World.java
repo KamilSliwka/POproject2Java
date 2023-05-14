@@ -10,14 +10,14 @@ public class World {
     private int roundCounter;
     private boolean game;
     private Organism[][] array;
-    private JFrame frame;
+    //private JFrame frame;
 
     public World() {
         this.x = 20;
         this.y = 20;
         this.roundCounter = 1;
         this.array = new Organism[20][20];
-        this.frame = new JFrame();
+        //this.frame = new JFrame();
         this.game = true;
 
 //        for(int i=0;i<20;i++){
@@ -28,7 +28,7 @@ public class World {
         // random organism
         //coordinate tmp =null;
         RandomPlace(new Human(5, 1, 4, this, null, false, 5));
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             RandomPlace(new Antylopa(4, 1, 4, this, null));
             RandomPlace(new Wilk(9, 1, 5, this, null));
             RandomPlace(new Owca(4, 1, 4, this, null));
@@ -39,6 +39,7 @@ public class World {
             RandomPlace(new Mlecz(0, 1, 0, this, null));
             RandomPlace(new Trawa(0, 1, 0, this, null));
             RandomPlace(new Guarana(0, 1, 0, this, null));
+
         }
     }
 
@@ -123,9 +124,12 @@ public class World {
             Organism org = move.lastElement();
             if (org.getAge() != -1) {
                 org.Action();
+
+            } else {
+                setOrganismOnArray(null, org.getPosition().getX(), org.getPosition().getY());
             }
-            //delete
             move.remove(move.size() - 1);
+            //delete
 
 
         }
@@ -133,15 +137,15 @@ public class World {
     }
 
     public void Game() {
-        PrintBoard();
+        //PrintBoard();
         while (isGame()) {
             setRoundCounter(getRoundCounter() + 1);
-            PrintArray();
+            PrintBoard();
             Round();
-//            Scanner scanner = new Scanner(System.in);
-//            System.out.println("Wciśnij Enter, aby kontynuować...");
-//            scanner.nextLine(); // odczytuje całą linijkę wprowadzoną przez użytkownika (włącznie z Enterem)
-//            System.out.println("Dalsza część programu...");
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Wciśnij Enter, aby kontynuować...");
+            scanner.nextLine(); // odczytuje całą linijkę wprowadzoną przez użytkownika (włącznie z Enterem)
+            System.out.println("Dalsza część programu...");
             //ClearBoard();
 
         }
@@ -206,7 +210,7 @@ public class World {
 
             }
         }
-        frame.add(panel5, BorderLayout.CENTER);
+        //frame.add(panel5, BorderLayout.CENTER);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Wciśnij Enter, aby kontynuować...");
         scanner.nextLine(); // odczytuje całą linijkę wprowadzoną przez użytkownika (włącznie z Enterem)
@@ -220,9 +224,8 @@ public class World {
 
 
     public void PrintBoard() {
-        JLabel label = new JLabel();
 
-        //JFrame frame = new JFrame();
+        JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(550, 650);
         frame.setLayout(new BorderLayout(10, 10));
@@ -234,93 +237,89 @@ public class World {
         JPanel panel2 = new JPanel();
         JPanel panel3 = new JPanel();
         JPanel panel4 = new JPanel();
-        //JPanel panel5 = new JPanel();
+        JPanel panel5 = new JPanel();
 
         panel1.setBackground(Color.darkGray);
         panel2.setBackground(Color.darkGray);
         panel3.setBackground(Color.darkGray);
         panel4.setBackground(Color.darkGray);
-        //panel5.setBackground(Color.lightGray);
+        panel5.setBackground(Color.lightGray);
 
-        //panel5.setLayout(new BorderLayout());
+        panel5.setLayout(new BorderLayout());
 
         panel1.setPreferredSize(new Dimension(0, 100));
         panel2.setPreferredSize(new Dimension(50, 100));
         panel3.setPreferredSize(new Dimension(50, 100));
         panel4.setPreferredSize(new Dimension(0, 50));
-        //panel5.setPreferredSize(new Dimension(405, 405));
+        panel5.setPreferredSize(new Dimension(405, 405));
 
-        //panel5.setLayout(null);
-//        Organism org = null;
-//        for (int j = 0; j < 20; j++) {
-//            for (int i = 0; i < 20; i++) {
-//                int finalI = i;
-//                JPanel SquarePanel = new JPanel();
-//                org=getOrganismFromArray(j+1,i+1);
-//                boolean visited = false;
-//                if(org instanceof Human) {
-//                    SquarePanel.setBackground(Color.RED);
-//                    visited = true;
-//                }
-//                else if(org instanceof Trawa){
-//                    SquarePanel.setBackground(Color.green);
-//                    visited = true;
-//                }
-//                else if(org instanceof Mlecz){
-//                    SquarePanel.setBackground(Color.white);
-//                    visited = true;
-//                }else if(org instanceof Guarana){
-//                    SquarePanel.setBackground(Color.orange);
-//                    visited = true;
-//                }else if(org instanceof BarszczSosnowskiego){
-//                    SquarePanel.setBackground(Color.yellow);
-//                    visited = true;
-//                }
-//                else if(org instanceof WilczeJagody){
-//                    SquarePanel.setBackground(Color.black);
-//                    visited = true;
-//                }else if(org instanceof Wilk){
-//                    SquarePanel.setBackground(Color.gray);
-//                    visited = true;
-//                }else if(org instanceof Lis){
-//                    SquarePanel.setBackground(new Color(255,88,27));
-//                    visited = true;
-//                }else if(org instanceof Owca){
-//                    SquarePanel.setBackground(new Color(139 ,255,240));
-//                    visited = true;
-//                }else if(org instanceof Antylopa){
-//                    SquarePanel.setBackground(new Color(158,87,57));
-//                    visited = true;
-//                }
-//                else if(org instanceof Zolw){
-//                    SquarePanel.setBackground(new Color(108,152,108));
-//                    visited = true;
-//                }
-//
-//
-//
-//                if(visited){
-//                    SquarePanel.setBounds(5 + i * 20, 5 + j * 20, 15, 15); //ustawienie pozycji i wymiarów kwadratu
-//                    panel5.add(SquarePanel);
-//                }
-//
-//            }
-//        }
+        panel5.setLayout(null);
+        Organism org = null;
+        for (int j = 0; j < 20; j++) {
+            for (int i = 0; i < 20; i++) {
+                int finalI = i;
+                JPanel SquarePanel = new JPanel();
+                org = getOrganismFromArray(j + 1, i + 1);
+                boolean visited = false;
+                if (org instanceof Human) {
+                    SquarePanel.setBackground(Color.RED);
+                    visited = true;
+                } else if (org instanceof Trawa) {
+                    SquarePanel.setBackground(Color.green);
+                    visited = true;
+                } else if (org instanceof Mlecz) {
+                    SquarePanel.setBackground(Color.white);
+                    visited = true;
+                } else if (org instanceof Guarana) {
+                    SquarePanel.setBackground(Color.orange);
+                    visited = true;
+                } else if (org instanceof BarszczSosnowskiego) {
+                    SquarePanel.setBackground(Color.yellow);
+                    visited = true;
+                } else if (org instanceof WilczeJagody) {
+                    SquarePanel.setBackground(Color.black);
+                    visited = true;
+                } else if (org instanceof Wilk) {
+                    SquarePanel.setBackground(Color.gray);
+                    visited = true;
+                } else if (org instanceof Lis) {
+                    SquarePanel.setBackground(new Color(255, 88, 27));
+                    visited = true;
+                } else if (org instanceof Owca) {
+                    SquarePanel.setBackground(new Color(139, 255, 240));
+                    visited = true;
+                } else if (org instanceof Antylopa) {
+                    SquarePanel.setBackground(new Color(158, 87, 57));
+                    visited = true;
+                } else if (org instanceof Zolw) {
+                    SquarePanel.setBackground(new Color(108, 152, 108));
+                    visited = true;
+                }
+
+
+                if (visited) {
+                    SquarePanel.setBounds(5 + i * 20, 5 + j * 20, 15, 15); //ustawienie pozycji i wymiarów kwadratu
+                    panel5.add(SquarePanel);
+                }
+
+            }
+        }
+
 
         frame.add(panel1, BorderLayout.NORTH);
         frame.add(panel2, BorderLayout.WEST);
         frame.add(panel3, BorderLayout.EAST);
         frame.add(panel4, BorderLayout.SOUTH);
-        // frame.add(panel5, BorderLayout.CENTER);
+        frame.add(panel5, BorderLayout.CENTER);
         frame.pack();
 
     }
 
-    public void ClearBoard() {
-        frame.getContentPane().removeAll();  //clear
-        frame.getContentPane().revalidate();
-        frame.getContentPane().repaint();
-    }
+//    public void ClearBoard() {
+//        frame.getContentPane().removeAll();  //clear
+//        frame.getContentPane().revalidate();
+//        frame.getContentPane().repaint();
+//    }
 
 }
 

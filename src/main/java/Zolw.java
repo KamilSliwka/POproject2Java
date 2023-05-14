@@ -13,7 +13,7 @@ public class Zolw extends Animal {
 
     @Override
     public String GetName() {
-        return ("Wilk");
+        return ("Zolw");
     }
 
     @Override

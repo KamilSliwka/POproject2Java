@@ -22,7 +22,7 @@ public class Antylopa extends Animal {
 
     @Override
     public coordinate Move() {
-        coordinate newPosition = getPosition();
+        coordinate newPosition = new coordinate(getPosition().getX(), getPosition().getY());
 
         Random rand = new Random();
         int randomNumber = rand.nextInt(8);

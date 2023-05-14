@@ -53,8 +53,9 @@ public class Human extends Animal {
 
     @Override
     public coordinate Move() {
-        KeyMove m;
-        m = new KeyMove(this);
+        KeyMove m = new KeyMove(this);
+        ;
+
         return this.getPosition();
     }
 }

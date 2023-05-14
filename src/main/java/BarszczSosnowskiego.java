@@ -20,24 +20,27 @@ public class BarszczSosnowskiego extends Plant {
 
     @Override
     public void Action() {
-        coordinate death = getPosition();
-        Organism org;
+        coordinate death = new coordinate(getPosition().getX(), getPosition().getY());
+        //Organism org;
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 if (i != 0 && j != 0) {
-                    org = getCurrentWorld().getOrganismFromArray(death.getX() + i, death.getY() + j);
+                    Organism org = getCurrentWorld().getOrganismFromArray(death.getX() + i, death.getY() + j);
                     if (org == null || ifPlant(org)) {
 
                     } else {
-                        if (ifHuman(org) && org.GetSpecialAbility()) {
-
-                        } else {
-                            org.setAge(-1);
-                            getCurrentWorld().setOrganismOnArray(null, death.getX() + i, death.getY() + j);
-                        }
+                        getCurrentWorld().setOrganismOnArray(null, death.getX() + i, death.getY() + j);
+//                        if (ifHuman(org) && org.GetSpecialAbility()) {
+//
+//                        } else {
+//                            //org.setAge(-1);
+//                            getCurrentWorld().setOrganismOnArray(null, death.getX() + i, death.getY() + j);
+//                        }
                     }
                 }
             }
         }
+        super.Action();
     }
+
 }

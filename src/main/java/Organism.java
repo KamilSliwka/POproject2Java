@@ -26,7 +26,8 @@ public abstract class Organism {
     public abstract Organism Multiplication(coordinate pos);
 
     public coordinate Move() {
-        coordinate newPosition = position;
+        coordinate newPosition = new coordinate(getPosition().getX(), getPosition().getY());
+
 
         Random rand = new Random();
         int randomNumber = rand.nextInt(4);
@@ -50,7 +51,8 @@ public abstract class Organism {
     }
 
     public coordinate FindFreeField() {
-        coordinate newPosition = position;
+        coordinate newPosition = new coordinate(getPosition().getX(), getPosition().getY());
+
 
         if (newPosition.getY() != 1 && currentWorld.getOrganismFromArray(newPosition.getX(), newPosition.getY() - 1) == null) {
             newPosition.setY(newPosition.getY() - 1);
